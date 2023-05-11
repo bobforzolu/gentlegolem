@@ -11,7 +11,6 @@ public class Spring : MonoBehaviour
     private void Start()
     {
          cahngeangle();
-            MoveProjectile();
       
 
         
@@ -54,9 +53,10 @@ public class Spring : MonoBehaviour
     }
     private void Update()
     {
+            MoveProjectile();
     }
     public void MoveProjectile()
     {
-        Rock.GetComponent<Rigidbody2D>().AddForce(speed * Rock.transform.forward,ForceMode2D.Impulse);
+        Rock.GetComponent<Rigidbody2D>().velocity =(speed * Rock.transform.right);
     }
 }
