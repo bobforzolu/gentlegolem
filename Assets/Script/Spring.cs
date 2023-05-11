@@ -10,7 +10,11 @@ public class Spring : MonoBehaviour
     public float speed = 15;
     private void Start()
     {
-        lunch= false;
+         cahngeangle();
+            MoveProjectile();
+      
+
+        
     }
     void cahngeangle()
     {
@@ -50,16 +54,6 @@ public class Spring : MonoBehaviour
     }
     private void Update()
     {
-        if (lunch)
-        {
-            lunch = false;
-            MoveProjectile();
-        }
-        else
-        {
-         cahngeangle();
-
-        }
     }
     public void MoveProjectile()
     {
