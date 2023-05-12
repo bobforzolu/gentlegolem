@@ -7,30 +7,30 @@ public class Spring : MonoBehaviour
     public GameObject Rock;
     public GameObject lunchlocation;
     public bool lunch;
+    public bool low;
     public float speed = 15;
     private void Start()
     {
-         cahngeangle();
-      
+        
 
         
     }
-    void cahngeangle()
+    void cahngeangle( GameObject rock)
     {
-        float? angle = CalcultateAngle(true);
+        float? angle = CalcultateAngle(low,rock);
         if (angle!= null) 
         {
-            Rock.transform.eulerAngles = new Vector3(0f,0f, 360f - (float)angle);
+            rock.transform.eulerAngles = new Vector3(0f,0f, 360f - (float)angle);
 
         }
     }
-    float? CalcultateAngle(bool low)
+    float? CalcultateAngle(bool low, GameObject rock)
     {
-        Vector2 targetDIR = lunchlocation.transform.position - this.transform.position;
-        float y = targetDIR.y;
+        Vector2 targetDIR = lunchlocation.transform.position - rock.transform.position;
+        float y = targetDIR.y ;
         targetDIR.y = 0;
-        float x = targetDIR.magnitude;
-        float gravity = 9.81f;
+        float x = targetDIR.magnitude - 1;
+        float gravity = 9.8f;
         float sSqr = speed* speed;
         float underTheSQR = (sSqr * sSqr)- gravity* (gravity*x*x+2*y * sSqr);
 
@@ -53,10 +53,17 @@ public class Spring : MonoBehaviour
     }
     private void Update()
     {
-            MoveProjectile();
+        if (lunch)
+        {
+            lunch = false;
+        MoveProjectile();
+
+        }
     }
     public void MoveProjectile()
     {
-        Rock.GetComponent<Rigidbody2D>().velocity =(speed * Rock.transform.right);
+        GameObject rock = Instantiate(Rock, this.transform.position, this.transform.rotation);
+        cahngeangle(rock);
+        rock.GetComponent<Rigidbody2D>().velocity =(speed * rock.transform.up);
     }
 }
