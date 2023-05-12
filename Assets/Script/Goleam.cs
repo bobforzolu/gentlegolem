@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goleam : MonoBehaviour
+public class Goleam : ControlAble
 {
-    // Start is called before the first frame update
+   
     void Start()
     {
         
