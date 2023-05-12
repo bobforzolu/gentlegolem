@@ -7,13 +7,13 @@ public  class SoStatemachine
     public BaseSoState CurrentPlayerState { get; private set; }
 
 
-    public void Initalize(BaseSoState state )
+    public void Initalize(BaseSoState state, ControlAble controller)
     {
         CurrentPlayerState = state;
-       // CurrentPlayerState.Enter(controller);
+        CurrentPlayerState.Enter(controller);
     }
 
-    public void ChangeState<T>(BaseSoState state, T controller)
+    public void ChangeState(BaseSoState state, ControlAble controller)
     {
         CurrentPlayerState.Exit(controller);
         CurrentPlayerState = state;

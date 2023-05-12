@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50910bfc93454947add5f2757ca5e5b, type: 3}
+  m_Name: MovementData
+  m_EditorClassIdentifier: 
+  movementvelocity: 10
+  JumpForce: 10
+  GroundCheck_Radius: 0.58
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  variablesJumpHeight: 0.4
+  dashCoolDown: 50
+  dashTime: 0.25
+  dashInteruptTime: 0.1
+  dashVelocity: 30
+  drag: 10
+  dashEndYMultiplier: 0.2
+  fallMultipier: 2.5
+  GravityModifier: 1.7
+  GravityDisableTime: 0.1

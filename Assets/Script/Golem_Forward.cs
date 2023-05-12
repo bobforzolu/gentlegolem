@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Forward : MonoBehaviour
+public class Golem_Forward : BaseSoState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Enter(ControlAble controller)
     {
+        base.Enter(controller);
+    }
+
+    public override void Exit(ControlAble controller)
+    {
+        base.Exit(controller);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateState(ControlAble controller)
     {
-        
+        base.UpdateState(controller);
     }
 }

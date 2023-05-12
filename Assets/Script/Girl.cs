@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goleam : ControlAble
+public class Girl : ControlAble
 {
-    private Rigidbody2D Rb;
+
+    public GameInput input { get; private set; }
+    public Walk Walk { get; private set; }
     private void Awake()
     {
         LoadData();
-        
+        input= GetComponent<GameInput>();
+        Walk = ScriptableObject.CreateInstance<Walk>();
+
     }
     void Start()
     {
-      Rb=  Rb.GetComponent<Rigidbody2D>();
+        soStatemachine.Initalize(Walk, this);
     }
 
     // Update is called once per frame

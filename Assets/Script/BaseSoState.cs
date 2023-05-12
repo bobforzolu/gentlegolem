@@ -10,7 +10,7 @@ public abstract  class  BaseSoState : ScriptableObject
     /**
      * enters the state
      */
-    public virtual  void Enter<T>(T controller)
+    public virtual  void Enter(ControlAble controller)
     {
         startTime = Time.time;
         
@@ -19,14 +19,14 @@ public abstract  class  BaseSoState : ScriptableObject
     /**
      * updates the current state
      */
-    public virtual void UpdateState<T>(T controller)
+    public virtual void UpdateState(ControlAble controller)
     {
 
     }
     /**
     * exits the current state
     */
-    public virtual void Exit<T>(T controller)
+    public virtual void Exit(ControlAble controller)
     {
         isExitingState = true;
     }
