@@ -6,26 +6,27 @@ using UnityEngine;
 
 public class Jump : AbilityState
 {
-    /**
-    public override void Enter(Players PlayerController)
+    
+    public override void Enter(ControlAble PlayerController)
     {
         base.Enter(PlayerController);
+        Girl girl = (Girl)PlayerController;
         PlayerController.Core.movement.SetJumpVelocityY(PlayerController.dataDirectory.movement.JumpForce);
         isabilityfinish = true;
-        PlayerController.airstate.SetisJumping(PlayerController);
+      //  girl.aIrState.SetisJumping(PlayerController);
         
     }
-    public override void Exit(Players PlayerController)
+    public override void Exit(ControlAble PlayerController)
     {
         base.Exit(PlayerController);
 
 
     }
 
-    public override void UpdateState(Players PlayerController)
+    public override void UpdateState(ControlAble PlayerController)
     {
         base.UpdateState(PlayerController);
 
     }
-    **/
+    
 }

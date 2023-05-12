@@ -11,9 +11,11 @@ public class MovementData : ScriptableObject
     [Header("jumpSpeed")]
     public float JumpForce = 10f;
 
-    [Header ("GroundCheck")]
+    [Header ("checks")]
     public float GroundCheck_Radius = 1f;
     public LayerMask ground;
+    public LayerMask ladder;
+
 
     [Header("in Air State ")]
     public float variablesJumpHeight = 0.4f;

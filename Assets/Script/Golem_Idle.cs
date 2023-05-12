@@ -2,17 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Idle : MonoBehaviour
+public class Golem_Idle : BaseSoState
 {
-    // Start is called before the first frame update
-    void Start()
+    public float distanceToPlayer;
+    public float walkspeed;
+    Goleam goleam;
+
+    public GameObject girl;
+
+
+    public bool forword;
+    public override void Enter(ControlAble controller)
     {
-        
+        base.Enter(controller);
+        goleam = (Goleam)controller;
+
+        walkspeed = 1.5f;
+        distanceToPlayer = 2f;
+        girl = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit(ControlAble controller)
     {
-        
+        base.Exit(controller);
+    }
+
+    public override void UpdateState(ControlAble controller)
+    {
+        base.UpdateState(controller);
+        controller.Core.movement.MoveToLocationWithLimits(girl.transform.position, controller.transform.position, walkspeed, distanceToPlayer);
+
+
+       
     }
 }

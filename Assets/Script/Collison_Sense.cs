@@ -17,6 +17,10 @@ public class Collison_Sense : Core_Component
     public bool GroundCheck(){
         return Physics2D.OverlapCircle(GroudCheckPosition.position, playerData.movement.GroundCheck_Radius,playerData.movement.ground);
     }
+    public bool Ladder()
+    {
+        return Physics2D.OverlapCircle(GroudCheckPosition.position, playerData.movement.GroundCheck_Radius, playerData.movement.ground);
+    }
 
 
     public void OnDrawGizmos() {

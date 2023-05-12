@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,20 @@ public class Spring : MonoBehaviour
     public bool lunch;
     public bool low;
     public float speed = 15;
+    private SpringColison c;
     private void Start()
     {
-        
-
+        c= GetComponentInChildren<SpringColison>();
+        c.OnRockTrigger += C_OnRockTrigger;
         
     }
+
+    private void C_OnRockTrigger(object sender, SpringColison.OnRockTriggerArgs e)
+    {
+        Rock = e.Rock;
+        lunch = e.start;
+    }
+
     void cahngeangle( GameObject rock)
     {
         float? angle = CalcultateAngle(low,rock);
@@ -53,6 +62,7 @@ public class Spring : MonoBehaviour
     }
     private void Update()
     {
+
         if (lunch)
         {
             lunch = false;
@@ -62,8 +72,7 @@ public class Spring : MonoBehaviour
     }
     public void MoveProjectile()
     {
-        GameObject rock = Instantiate(Rock, this.transform.position, this.transform.rotation);
-        cahngeangle(rock);
-        rock.GetComponent<Rigidbody2D>().velocity =(speed * rock.transform.up);
+        cahngeangle(Rock);
+        Rock.GetComponentInChildren<Rigidbody2D>().velocity =(speed * Rock.transform.up);
     }
 }

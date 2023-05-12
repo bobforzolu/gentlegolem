@@ -62,13 +62,22 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Stop"",
+                    ""type"": ""Button"",
+                    ""id"": ""b69f91a9-ebe9-4253-81fd-c5ae2d524c1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""e6dac78f-81e3-4c47-9ab1-f736888ebb20"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -79,7 +88,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4bec6406-03b3-49d9-bb29-3975a3fba9eb"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -90,7 +99,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f498e68d-d94a-4ecd-8fcd-13508dc5eee0"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -152,6 +161,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c95cb5d8-0294-48c0-8da3-4ddd9fa5a9a2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Intaract = m_Player.FindAction("Intaract", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_movement = m_Player.FindAction("movement", throwIfNotFound: true);
+        m_Player_Stop = m_Player.FindAction("Stop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Intaract;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_movement;
+    private readonly InputAction m_Player_Stop;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -235,6 +257,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Intaract => m_Wrapper.m_Player_Intaract;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @movement => m_Wrapper.m_Player_movement;
+        public InputAction @Stop => m_Wrapper.m_Player_Stop;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +279,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Stop.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStop;
+                @Stop.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStop;
+                @Stop.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStop;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +298,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @movement.started += instance.OnMovement;
                 @movement.performed += instance.OnMovement;
                 @movement.canceled += instance.OnMovement;
+                @Stop.started += instance.OnStop;
+                @Stop.performed += instance.OnStop;
+                @Stop.canceled += instance.OnStop;
             }
         }
     }
@@ -282,5 +311,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnIntaract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnStop(InputAction.CallbackContext context);
     }
 }

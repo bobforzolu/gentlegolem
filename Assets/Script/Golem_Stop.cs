@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Golem_Stop : MonoBehaviour
+public class Golem_Stop : BaseSoState
 {
-    // Start is called before the first frame update
-    void Start()
+  
+
+    public override void Enter(ControlAble controller)
     {
-        
+        base.Enter(controller);
+        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.FreezeAll;
+        controller.gameObject.layer = LayerMask.NameToLayer("rock");
+
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit(ControlAble controller)
     {
-        
+        base.Exit(controller);
+        controller.gameObject.layer = LayerMask.NameToLayer("Golem");
+
+        controller.Core.movement.SetVelocityX(0);
+        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.None;
+
+    }
+
+    public override void UpdateState(ControlAble controller)
+    {
+        base.UpdateState(controller);
     }
 }

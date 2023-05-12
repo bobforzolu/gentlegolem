@@ -13,6 +13,7 @@ public abstract  class  BaseSoState : ScriptableObject
     public virtual  void Enter(ControlAble controller)
     {
         startTime = Time.time;
+        Debug.Log(this);
         
         isExitingState = false;
     }

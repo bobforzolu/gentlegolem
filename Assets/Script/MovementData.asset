@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50910bfc93454947add5f2757ca5e5b, type: 3}
   m_Name: MovementData
   m_EditorClassIdentifier: 
-  movementvelocity: 10
-  JumpForce: 10
+  movementvelocity: 5
+  JumpForce: 5
   GroundCheck_Radius: 0.58
   ground:
+    serializedVersion: 2
+    m_Bits: 256
+  ladder:
     serializedVersion: 2
     m_Bits: 0
   variablesJumpHeight: 0.4

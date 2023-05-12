@@ -119,11 +119,32 @@ public class Movement : Core_Component
     {
          elapsedtime += Time.deltaTime;
         float precentagedone = elapsedtime / duration;
+        if(p1.x > p2.x)
+             workplace = Vector2.Lerp(p1, p2, precentagedone);
+        else
+            workplace = Vector2.Lerp(p1, p2, precentagedone);
 
-        workplace = Vector2.Lerp(p1, p2, precentagedone);
         RB.velocity = workplace;
         CurrentVelocity = workplace;
     }
-  
+    public void MoveToLocationWithLimits(Vector2 p1, Vector2 p2, float speed, float dis)
+    {
+        Vector2 directionToPlayer = p1 - p2;
+        workplace = directionToPlayer.normalized;
+        if(Vector2.Distance(p1, p2) > dis)
+        {
+            if(p1.x < p2.x)
+            {
+                 RB.velocity = new Vector2( workplace.x * speed,RB.velocity.y);
+
+            }
+            else
+            {
+                RB.velocity = new Vector2(workplace.x * speed,  RB.velocity.y);
+
+            }
+        }
+    }
+
 
 }

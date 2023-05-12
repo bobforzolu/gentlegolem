@@ -8,8 +8,8 @@ public abstract class  AbilityState : BaseSoState
     protected bool actionTrigger;
     protected bool IsGrounded;
 
-    /**
-    public override void Enter(Players PlayerController)
+    
+    public override void Enter(ControlAble PlayerController)
     {
         base.Enter(PlayerController);
         isabilityfinish = false;
@@ -23,36 +23,37 @@ public abstract class  AbilityState : BaseSoState
         actionTrigger = e.ActionTrigger;
     }
 
-    public override void Exit(Players PlayerController)
+    public override void Exit(ControlAble PlayerController)
     {
         base.Exit(PlayerController);
         PlayerController.animationEvents.OnAnimationEvnts -= AnimationEvents_OnAnimationEvnts;
 
     }
 
-    public override void UpdateState(Players PlayerController)
+    public override void UpdateState(ControlAble PlayerController)
     {
         base.UpdateState(PlayerController);
        
+        Girl girl = (Girl)PlayerController;
         IsGrounded = PlayerController.Core.collison_Sense.GroundCheck();
-        
+
         if (isabilityfinish)
         {
             if (IsGrounded)
             {
-                PlayerController.StateMachine.ChangeState(PlayerController.idle, PlayerController);
+                girl.soStatemachine.ChangeState(girl.Walk, PlayerController);
 
             }
             else
             {
-                PlayerController.StateMachine.ChangeState(PlayerController.airstate, PlayerController);
+                girl.soStatemachine.ChangeState(girl.aIrState, PlayerController);
 
             }
         }
 
 
     }
-    **/
+    
 
 
 }

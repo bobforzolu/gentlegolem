@@ -6,11 +6,13 @@ public abstract class ControlAble: MonoBehaviour
 {
     public SoStatemachine soStatemachine;
     public PlayerDataDirectory dataDirectory;
+    public AnimationEvents animationEvents;
     public Core Core;
    public  void LoadData()
     {
         soStatemachine = new SoStatemachine();
-        Core=  Core.GetComponentInChildren<Core>();
+        Core=  GetComponentInChildren<Core>();
+        animationEvents = GetComponent<AnimationEvents>();
     }
     public  void LogicUpdate()
     {

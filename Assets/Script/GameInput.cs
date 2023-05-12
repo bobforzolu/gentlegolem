@@ -5,7 +5,10 @@ using UnityEngine;
 public class GameInput : MonoBehaviour
 {
     // Start is called before the first frame update
-    private PlayerInputActions inputActions;
+    public PlayerInputActions inputActions { get; private set; }
+    public bool jump { get; private set; }
+    public bool Command { get; private set; }
+    public bool interact { get; private set; }
     private void Awake()
     {
         inputActions= new PlayerInputActions();
@@ -13,8 +16,12 @@ public class GameInput : MonoBehaviour
     }
     void Start()
     {
-        
+       
+
     }
+
+    
+
     public float GetMovementVectorNoarmalized()
     {
         Vector2 inputvector = inputActions.Player.movement.ReadValue<Vector2>();
@@ -29,4 +36,5 @@ public class GameInput : MonoBehaviour
     {
         
     }
+   
 }
