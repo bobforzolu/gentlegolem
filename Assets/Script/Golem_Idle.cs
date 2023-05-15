@@ -17,9 +17,10 @@ public class Golem_Idle : BaseSoState
         base.Enter(controller);
         goleam = (Goleam)controller;
 
-        walkspeed = 1.5f;
+        walkspeed = 2.5f;
         distanceToPlayer = 2f;
         girl = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     public override void Exit(ControlAble controller)
@@ -30,6 +31,8 @@ public class Golem_Idle : BaseSoState
     public override void UpdateState(ControlAble controller)
     {
         base.UpdateState(controller);
+        goleam.animator.Play("idlerock");
+
         controller.Core.movement.MoveToLocationWithLimits(girl.transform.position, controller.transform.position, walkspeed, distanceToPlayer);
 
 

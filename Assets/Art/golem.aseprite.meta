@@ -2,7 +2,22 @@ fileFormatVersion: 2
 guid: d81b31823b9b53944a8877992c7be5cb
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: gentlerock
+    second: {fileID: 7400000, guid: d9bf9cf637bc5ea48bc58384ea003ac8, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: idlerock
+    second: {fileID: 7400000, guid: 2082f65ddc5a1974c9acde32f4f22f39, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: run
+    second: {fileID: 7400000, guid: 234da96313f8f7942ba9e9f23378b10d, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -93,7 +108,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638194499366499166
+  platformSettingsDirtyTick: 638195126114197074
   textureAssetName: 
   singleSpriteImportData:
   - name: 

@@ -6,16 +6,18 @@ using UnityEngine;
 public class Spring : MonoBehaviour
 {
     public GameObject Rock;
-    public GameObject lunchlocation;
+    public Transform target;
     public bool lunch;
     public bool low;
-    public float speed = 15;
+    public float launchAngle = 45f;
+    public float launchSpeed = 10f;
     private SpringColison c;
+    Animator animator;
     private void Start()
     {
         c= GetComponentInChildren<SpringColison>();
         c.OnRockTrigger += C_OnRockTrigger;
-        
+        animator = GetComponent<Animator>();
     }
 
     private void C_OnRockTrigger(object sender, SpringColison.OnRockTriggerArgs e)
@@ -26,40 +28,9 @@ public class Spring : MonoBehaviour
 
     void cahngeangle( GameObject rock)
     {
-        float? angle = CalcultateAngle(low,rock);
-        if (angle!= null) 
-        {
-            rock.transform.eulerAngles = new Vector3(0f,0f, 360f - (float)angle);
-
-        }
+      
     }
-    float? CalcultateAngle(bool low, GameObject rock)
-    {
-        Vector2 targetDIR = lunchlocation.transform.position - rock.transform.position;
-        float y = targetDIR.y ;
-        targetDIR.y = 0;
-        float x = targetDIR.magnitude - 1;
-        float gravity = 9.8f;
-        float sSqr = speed* speed;
-        float underTheSQR = (sSqr * sSqr)- gravity* (gravity*x*x+2*y * sSqr);
-
-        if (underTheSQR >= 0f)
-        {
-            float root = Mathf.Sqrt(underTheSQR);
-            float highAngle = sSqr + root;
-            float lowAngle = sSqr - root;
-
-            if (low)
-            {
-                return Mathf.Atan2(lowAngle, gravity * x) * Mathf.Rad2Deg;
-            }
-            else
-                return Mathf.Atan2(highAngle, gravity * x) * Mathf.Rad2Deg;
-        }
-        else
-            return null;
-
-    }
+   
     private void Update()
     {
 
@@ -72,7 +43,36 @@ public class Spring : MonoBehaviour
     }
     public void MoveProjectile()
     {
-        cahngeangle(Rock);
-        Rock.GetComponentInChildren<Rigidbody2D>().velocity =(speed * Rock.transform.up);
+
+
+        animator.Play("lunch");
+        // Calculate distance and height difference to target
+        float targetDistance = Vector2.Distance(Rock.transform.position, target.position);
+        float targetHeight = target.position.y - Rock.transform.position.y;
+
+        // Calculate launch velocity using angle and speed
+        float launchVelocity = launchSpeed / Mathf.Cos(launchAngle * Mathf.Deg2Rad);
+        Vector2 launchDirection = (target.position - Rock.transform.position).normalized;
+        Vector2 launchVelocityVector = launchDirection * launchVelocity;
+
+        // Calculate time of flight using quadratic formula
+        float timeOfFlight = (targetDistance) / (launchVelocity * Mathf.Cos(launchAngle * Mathf.Deg2Rad));
+        float maxHeight = Rock.transform.position.y + (targetHeight + Mathf.Tan(launchAngle * Mathf.Deg2Rad) * targetDistance) / 2f;
+
+        // Instantiate rock and launch using trajectory formula
+        
+        Rigidbody2D rockRigidbody = Rock.GetComponentInChildren<Rigidbody2D>();
+        rockRigidbody.velocity = launchVelocityVector;
+        rockRigidbody.gravityScale = Mathf.Abs(Physics2D.gravity.y);
+        rockRigidbody.drag = rockRigidbody.mass / (timeOfFlight * rockRigidbody.gravityScale);
+        rockRigidbody.AddForce(Vector2.up * maxHeight, ForceMode2D.Impulse);
+        Invoke("RevertSpring", 1f);
+    }
+
+
+    public void RevertSpring()
+    {
+        animator.Play("idle");
+
     }
 }

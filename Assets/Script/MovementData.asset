@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementvelocity: 5
   JumpForce: 5
-  GroundCheck_Radius: 0.58
+  GroundCheck_Radius: 0.09
   ground:
     serializedVersion: 2
     m_Bits: 256

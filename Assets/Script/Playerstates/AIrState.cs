@@ -8,6 +8,7 @@ public class AIrState : BaseSoState
 {
 
     float xinput;
+    bool grounded;
     public override void Enter(ControlAble PlayerController)
     {
         base.Enter(PlayerController);
@@ -33,8 +34,19 @@ public class AIrState : BaseSoState
 
         }
         Girl girl = (Girl)PlayerController;
-        xinput = girl.input.GetMovementVectorNoarmalized();
-       
+        xinput = girl.input.normInputY;
+        grounded = PlayerController.Core.collison_Sense.GroundCheck();
+
+       girl.Core.movement.SetVelocityX(xinput * 0.3f);
+
+        if (grounded)
+        {
+            PlayerController.soStatemachine.ChangeState(girl.Walk, PlayerController);
+        }
+        if (PlayerController.Core.movement.RB.velocity.y < 0)
+        {
+            PlayerController.Core.movement.FasterLanding(PlayerController);
+        }
 
     }
     /**

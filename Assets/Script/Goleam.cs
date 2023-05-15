@@ -7,7 +7,9 @@ public class Goleam : ControlAble
     public Golem_Idle idle;
     public Golem_Stop golem_Stop;
     public Golem_Forward golem_Forward;
-    private GameInput gameInput;
+    public GameInput gameInput { get; private set; }
+    public Animator animator { get; private set; }
+    private GoleamSpech speech ;
     private bool bossidle;
     private void Awake()
     {
@@ -15,6 +17,7 @@ public class Goleam : ControlAble
         idle = ScriptableObject.CreateInstance<Golem_Idle>();
         golem_Forward = ScriptableObject.CreateInstance<Golem_Forward>();
         golem_Stop = ScriptableObject.CreateInstance<Golem_Stop>();
+        animator = GetComponent<Animator>();
         gameInput = GameObject.FindGameObjectWithTag("Player").GetComponent<GameInput>();
 
 
@@ -23,6 +26,7 @@ public class Goleam : ControlAble
 
     void Start()
     {
+        speech= GetComponent<GoleamSpech>();
         bossidle = true;
         soStatemachine.Initalize(idle, this);
         gameInput.inputActions.Player.Stop.performed += Stop_performed;
@@ -36,37 +40,53 @@ public class Goleam : ControlAble
         soStatemachine.CurrentPlayerState.UpdateState(this);
     }
     private void CommandForward_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        if(bossidle)
+    { 
+        if(gameInput.lastInput != 0 )
         {
-            bossidle = false;
+            speech.playAnimation("run");
             soStatemachine.ChangeState(golem_Forward, this);
             
-            return;
         }
-        else
+        else 
         {
-            bossidle = true;
+            
             soStatemachine.ChangeState(idle, this);
 
+            speech.playAnimation("idle");
 
         }
     }
 
     private void Stop_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if(bossidle)
+        if(soStatemachine.CurrentPlayerState == idle)
         {
             soStatemachine.ChangeState(golem_Stop, this);
-            bossidle= false;
-            return;
+            speech.playAnimation("cut connection");
+
 
         }
-        else
+        else if (soStatemachine.CurrentPlayerState ==  golem_Forward)
         {
             bossidle= true;
-            soStatemachine.ChangeState(idle, this);
+            soStatemachine.ChangeState(golem_Stop, this);
+            speech.playAnimation("cut connection");
+
 
         }
+        else if (soStatemachine.CurrentPlayerState == golem_Stop)
+        {
+            bossidle = true;
+            soStatemachine.ChangeState(idle, this);
+            speech.playAnimation("idle");
+
+
+        }
+
+    }
+    private void OnDestroy()
+    {
+        gameInput.inputActions.Player.Stop.performed -= Stop_performed;
+        gameInput.inputActions.Player.CommandForward.performed -= CommandForward_performed;
     }
 }

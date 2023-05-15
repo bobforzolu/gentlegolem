@@ -47,8 +47,7 @@ public class Movement : Core_Component
     {
         workplace.Set(CurrentVelocity.x, velocity);
         RB.AddForce(workplace, ForceMode2D.Impulse);
-        RB.velocity = workplace;
-        CurrentVelocity = workplace;
+       
     }
 
     public void SetVelocity(float velocity, Vector2 Direction)

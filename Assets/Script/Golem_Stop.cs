@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Golem_Stop : BaseSoState
 {
-  
+
+    Goleam goleam;
 
     public override void Enter(ControlAble controller)
     {
         base.Enter(controller);
-        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.FreezeAll;
-        controller.gameObject.layer = LayerMask.NameToLayer("rock");
+        goleam = (Goleam)controller;
+
+        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        controller.gameObject.layer = LayerMask.NameToLayer("Ground");
+
 
 
     }
@@ -20,13 +24,15 @@ public class Golem_Stop : BaseSoState
         base.Exit(controller);
         controller.gameObject.layer = LayerMask.NameToLayer("Golem");
 
-        controller.Core.movement.SetVelocityX(0);
-        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.None;
+        controller.Core.movement.RB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
     }
 
     public override void UpdateState(ControlAble controller)
     {
         base.UpdateState(controller);
+        goleam.animator.Play("gentlerock");
+
+
     }
 }
